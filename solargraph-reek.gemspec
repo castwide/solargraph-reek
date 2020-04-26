@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.add_dependency 'reek'
+  spec.add_dependency 'reek', '>= 5.0'
   spec.add_dependency 'solargraph', '~> 0.38'
 
   spec.add_development_dependency "bundler", "~> 2.0"
