@@ -6,6 +6,7 @@ module Solargraph
   module Reek
     class Reporter < Solargraph::Diagnostics::Base
       def diagnose source, _api_map
+        Reek::Configuration::ConfigurationFileFinder.find_and_load
         examiner = ::Reek::Examiner.new(source.code.dup)
         examiner.smells.map { |w| warning_to_diagnostic(w) }
       rescue ::Reek::Errors::SyntaxError
