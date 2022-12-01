@@ -9,6 +9,8 @@ module Solargraph
         configuration = ::Reek::Configuration::AppConfiguration.from_default_path
         source_pathname = Pathname.new(source.filename)
 
+        return [] if configuration.path_excluded?(source_pathname)
+
         examiner = ::Reek::Examiner.new(source_pathname, configuration: configuration)
         examiner.smells.map { |w| warning_to_diagnostic(w) }
       rescue ::Reek::Errors::SyntaxError
