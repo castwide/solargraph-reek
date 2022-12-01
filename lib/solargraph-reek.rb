@@ -1,6 +1,7 @@
 require 'solargraph'
 require 'solargraph-reek/version'
 require 'reek'
+require 'pathname'
 
 module Solargraph
   module Reek
