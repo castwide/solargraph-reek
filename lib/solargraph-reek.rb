@@ -5,9 +5,11 @@ require 'reek'
 module Solargraph
   module Reek
     class Reporter < Solargraph::Diagnostics::Base
-      def diagnose source, _api_map
+      def diagnose(source, _api_map)
         configuration = ::Reek::Configuration::AppConfiguration.from_default_path
-        examiner = ::Reek::Examiner.new(source.code.dup, configuration: configuration)
+        source_pathname = Pathname.new(source.filename)
+
+        examiner = ::Reek::Examiner.new(source_pathname, configuration: configuration)
         examiner.smells.map { |w| warning_to_diagnostic(w) }
       rescue ::Reek::Errors::SyntaxError
         []
