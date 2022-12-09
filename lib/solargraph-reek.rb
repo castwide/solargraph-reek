@@ -1,6 +1,7 @@
 require 'solargraph'
 require 'solargraph-reek/version'
 require 'reek'
+require 'pathname'
 
 module Solargraph
   module Reek
@@ -8,6 +9,8 @@ module Solargraph
       def diagnose(source, _api_map)
         configuration = ::Reek::Configuration::AppConfiguration.from_default_path
         source_pathname = Pathname.new(source.filename)
+
+        return [] if configuration.path_excluded?(source_pathname)
 
         examiner = ::Reek::Examiner.new(source_pathname, configuration: configuration)
         examiner.smells.map { |w| warning_to_diagnostic(w) }
